@@ -1,8 +1,8 @@
 # CARBOOST
 
 ## About
-###  CARBOOST: Chimeric Antigen Receptor Biophysically Oriented Oprtimization of Synaptic Topology.
-This package implements the `carboost` protocol in inference stage as mentioned in the (manuscript - soon to be added). The `carboost` package repurposes previously estimated CD8$\alpha$ derived CAR's end-to-end ($z_{e2e}$, perpendicular to membrane) distance densities ($P(z_{e2e})$). Thus, for any given target receptor `carboost` can generate the target's $P(z_{e2e})$ and finally calculates the intermembrane distance (synaptic cleft).
+###  CARBOOST: Chimeric Antigen Receptor Biophysically Oriented Optimization of Synaptic Topology.
+This package implements the `carboost` protocol in inference stage as mentioned in the (manuscript - soon to be added). The `carboost` package repurposes previously estimated CD8 $\alpha$ derived CAR's end-to-end ($z_{e2e}$, perpendicular to membrane) distance densities ( $P(z_{e2e})$ ). Thus, for any given target receptor `carboost` can generate the target's $P(z_{e2e})$ and finally calculates the intermembrane distance (synaptic cleft).
 
 
 ## Notebooks
@@ -18,7 +18,7 @@ It is strongly recommended a separate environment for this package, either with 
 pip install "git+https://github.com/tiwarylab/carboost.git"
 ```
 
-If you want the `folding` module it is recommended to use Colabnotebook as colabfold$^{[1]}$ requires a GPU with internet available for MSA generation. Please follow the instructions presented in the [toolkit notebook]().
+If you want the `folding` module it is recommended to use Colabnotebook as colabfold $^{[1]}$ requires a GPU with internet available for MSA generation. Please follow the instructions presented in the [toolkit notebook]().
 
 For local source installation, please clone the repository using `git clone ...` and simpy run 
 ```bash
@@ -59,7 +59,7 @@ summary = run_colabfold_pipeline(
     show_prediction_plot=False,
 )
 ```
-The above code shows how to use the `folding` module to run a vanilla AlphaFold2 using ColabFold$^{[1]}$ and MMSeq2 without any templates. This code can be adapted to perform reduced MSA$^{[2]}$ by changing `max_msa` to `['32:64', '16:32', '8:16', '4:8']`. This is a free parameter and can chosen according to the timescale/lengthscale movement in the protein$^{[3]}$.
+The above code shows how to use the `folding` module to run a vanilla AlphaFold2 using ColabFold $^{[1]}$ and MMSeq2 without any templates. This code can be adapted to perform reduced MSA $^{[2]}$ by changing `max_msa` to `['32:64', '16:32', '8:16', '4:8']`. This is a free parameter and can chosen according to the timescale/lengthscale movement in the protein $^{[3]}$.
 
 ### Receptor module (`carboost.receptor`):
 #### About
@@ -100,15 +100,15 @@ For reduced MSA AF2 generated ensemble:
 ```
 probab_cars, max_cars = load_rMSA_AF2_KDEs(hinge_sequence_lengths=hinge_sequence_lengths,bandwidth=0.5)
 ```
-For `af2rave` generated ensemble$^{[4,5]}$:
+For `af2rave` generated ensemble $^{[4,5]}$:
 ```
 probab_cars, max_cars = load_af2rave_KDEs(hinge_sequence_lengths=hinge_sequence_lengths)
 ```
-**NOTE:** Please note that these distrbutions are not thermodynamically weighted (for rMSA AF2) or may not be converged (for af2rave). However, we have shown that these data can still give a good estimate on an optimal CD8$\alpha$ derived CAR hinge.
+**NOTE:** Please note that these distrbutions are not thermodynamically weighted (for rMSA AF2) or may not be converged (for af2rave). However, we have shown that these data can still give a good estimate on an optimal CD8 $\alpha$ derived CAR hinge.
 
-**NOTE:** Further, rMSA AF2 structures under hinge_sequence_length < 40 with chemical bias can also provide a good estimate on the optimal CD8$\alpha$ derived CAR hinge.
+**NOTE:** Further, rMSA AF2 structures under hinge_sequence_length < 40 with chemical bias can also provide a good estimate on the optimal CD8 $\alpha$ derived CAR hinge.
 
-**NOTE:** If necessary the `folding` and `receptor` module can be used to generate structures and $P(z_{e2e})$ for any other hinges or CAR receptors to calculate the `phi` values. (An additional simulation module will be provided soon or upon request$^{[4,5]}$.)
+**NOTE:** If necessary the `folding` and `receptor` module can be used to generate structures and $P(z_{e2e})$ for any other hinges or CAR receptors to calculate the $\phi$ values. (An additional simulation module will be provided soon or upon request $^{[4,5]}$.)
 
 ## Bibliography
 #### This work
