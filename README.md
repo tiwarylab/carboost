@@ -98,10 +98,12 @@ Additionally, as we mentioned `carboost` uses the pre-existing CAR $P(z_{e2e})$.
 ### Usage
 For reduced MSA AF2 generated ensemble:
 ```
+from carboost.utils.load_utils import load_rMSA_AF2_KDEs
 probab_cars, max_cars = load_rMSA_AF2_KDEs(hinge_sequence_lengths=hinge_sequence_lengths,bandwidth=0.5)
 ```
 For `af2rave` generated ensemble $^{[4,5]}$:
 ```
+from carboost.utils.load_utils import load_af2rave_KDEs
 probab_cars, max_cars = load_af2rave_KDEs(hinge_sequence_lengths=hinge_sequence_lengths)
 ```
 **NOTE:** Please note that these distrbutions are not thermodynamically weighted (for rMSA AF2) or may not be converged (for af2rave). However, we have shown that these data can still give a good estimate on an optimal CD8 $\alpha$ derived CAR hinge.
