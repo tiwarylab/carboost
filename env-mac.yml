@@ -1,0 +1,20 @@
+name: carboost-mac
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.10
+  - setuptools
+  - pip
+  - git
+  - mdtraj
+  - mdanalysis
+  - numpy
+  - pandas
+  - PyYAML
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - ipykernel
+  - py3Dmol
+  - seaborn

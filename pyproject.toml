@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=69.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "carboost"
+version = "0.1.0"
+description = "CAR-BOOSTing T-Cell Responsiveness through Synaptic Cleft Engineering"
+readme = "README.md"
+authors = [
+  {name = "Akashnathan Aranganathan", email = "aanathan@umd.edu"}
+]
+maintainers = [
+  {name = "Tiwary Lab"}
+]
+
+license = {text = "LICENSE"}
+requires-python = ">= 3.10"
+dependencies = [
+  "natsort",
+  "mdtraj",
+  "numpy",
+  "matplotlib",
+  "scikit-learn",
+  "tqdm",
+  "py3Dmol",
+  "pandas",
+  "scipy",
+  "seaborn"
+]
+
+[project.urls]
+Repository = "https://github.com/tiwarylab/carboost"
+Homepage = "https://github.com/tiwarylab/carboost"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]        
+include = ["carboost*"]
+exclude = ["docs*", "tests*"]
+
+[tool.setuptools.package-data]
+"carboost" = [
+  "resources/**/*"
+]
