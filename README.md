@@ -9,8 +9,8 @@ This package implements the `carboost` protocol in inference stage as mentioned 
 
 Two colab notebooks are provided with this package:
 
-- A [demo notebook](https://github.com/tiwarylab/carboost/blob/main/CARBOOST_demo_no_colabfold_CD22target.ipynb) to show how `carboost` protocol performs.
-- A [toolkit notebook](https://github.com/tiwarylab/carboost/blob/main/CARBOOST_toolkit_with_colabfold_and_rMSA_AF2.ipynb) that uses colabfold and performs carboost protocol for any given sequences.
+- A [demo notebook](https://colab.research.google.com/github/tiwarylab/carboost/blob/main/CARBOOST_demo_no_colabfold_CD22target.ipynb) to show how `carboost` protocol performs.
+- A [toolkit notebook](https://colab.research.google.com/github/tiwarylab/carboost/blob/main/CARBOOST_toolkit_with_colabfold_and_rMSA_AF2.ipynb) that uses colabfold and performs carboost protocol for any given sequences.
 
 ## Install
 It is strongly recommended a separate environment for this package, either with conda or venv. After activating the environment the carboost can be installed by:
@@ -18,7 +18,7 @@ It is strongly recommended a separate environment for this package, either with 
 pip install "git+https://github.com/tiwarylab/carboost.git"
 ```
 
-If you want the `folding` module it is recommended to use Colabnotebook as colabfold $^{[1]}$ requires a GPU with internet available for MSA generation. Please follow the instructions presented in the [toolkit notebook](https://github.com/tiwarylab/carboost/blob/main/CARBOOST_toolkit_with_colabfold_and_rMSA_AF2.ipynb).
+If you want the `folding` module it is recommended to use Colabnotebook as colabfold $^{[1]}$ requires a GPU with internet available for MSA generation. Please follow the instructions presented in the [toolkit notebook](https://colab.research.google.com/github/tiwarylab/carboost/blob/main/CARBOOST_toolkit_with_colabfold_and_rMSA_AF2.ipynb).
 
 For local source installation, please clone the repository using `git clone ...` and simpy run 
 ```bash
@@ -90,7 +90,7 @@ for hinge_len in hinge_sequence_lengths:
                       offset_value=scFv_offset+target_offset)
     Phi_values[hinge_len] = run_carboost_pipeline(syn)['phi']
 ```
-All the variables used are explained in the [Demo](https://github.com/tiwarylab/carboost/blob/main/CARBOOST_demo_no_colabfold_CD22target.ipynb) and the [Toolkit](https://github.com/tiwarylab/carboost/blob/main/CARBOOST_toolkit_with_colabfold_and_rMSA_AF2.ipynb) notebooks presented.
+All the variables used are explained in the [Demo](https://colab.research.google.com/github/tiwarylab/carboost/blob/main/CARBOOST_demo_no_colabfold_CD22target.ipynb) and the [Toolkit](https://colab.research.google.com/github/tiwarylab/carboost/blob/main/CARBOOST_toolkit_with_colabfold_and_rMSA_AF2.ipynb) notebooks presented.
 
 ## Inference mode (`resources`)
 ### About
