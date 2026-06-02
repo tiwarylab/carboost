@@ -10,7 +10,7 @@ This package implements the `carboost` protocol in inference stage as mentioned 
 Two colab notebooks are provided with this package:
 
 - A [demo notebook](https://colab.research.google.com/github/tiwarylab/carboost/blob/main/CARBOOST_demo_no_colabfold_CD22target.ipynb) to show how `carboost` protocol performs.
-- A [toolkit notebook](https://colab.research.google.com/github/tiwarylab/carboost/blob/main/CARBOOST_toolkit_with_colabfold_and_rMSA_AF2.ipynb) that uses colabfold and performs carboost protocol for any given sequences.
+- A [toolkit notebook](https://colab.research.google.com/github/tiwarylab/carboost/blob/main/CARBOOST_toolkit_with_colabfold_and_rMSA_AF2.ipynb) (<span style="color:red"><strong>UNDER CONSTRUCTION</strong></span>)that uses colabfold and performs carboost protocol for any given sequences.
 
 ## Install
 It is strongly recommended a separate environment for this package, either with conda or venv. After activating the environment the carboost can be installed by:
