@@ -73,7 +73,7 @@ class SynapseBase:
         else:
             raise ValueError("target_type must be either 'dynamic' or 'rigid'.")
 
-        self.region_split = [0.0, 12.5, 14.5, self.max_val]
+        self.region_split = [self.offset_value, 12.5, 14.5, self.max_val]
         self._validate_inputs()
 
     @staticmethod
@@ -192,9 +192,18 @@ class PhiValueCalculator:
             len(probabilities_region)
         )
 
-        dG1, dG2, phi = get_estimators(probabilities_avg.tolist())
+        dG1, dG2, phi = get_estimators(
+            probabilities_avg.tolist(),
+            self.synapse.region_split,
+            self.synapse.max_val_target,
+            self.synapse.offset_value
+        )
         dG1_err, dG2_err, phi_err = get_estimators_delta(
-            probabilities_avg.tolist(), probabilities_delta.tolist()
+            probabilities_avg.tolist(),
+            probabilities_delta.tolist(),
+            self.synapse.region_split,
+            self.synapse.max_val_target,
+            self.synapse.offset_value
         )
 
         return {

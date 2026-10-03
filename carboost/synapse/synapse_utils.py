@@ -100,7 +100,13 @@ def get_regions_probabilities(prob_avg, region_split, xvals):
         raise ValueError("xvals must be a 1D array.")
 
     edges = list(region_split)
-    _, line1, line2, max_val = edges
+    line0, line1, line2, max_val = edges
+
+    if line1 - line0 <= 0:
+        edges = edges[1:]
+    elif line1 - line0 > 0:
+        if np.abs(line1 - line0) < (np.abs(line2 - line1))/2:
+            edges = edges[1:]
 
     if max_val - line2 <= 0:
         edges = edges[:-1]
@@ -118,7 +124,21 @@ def get_regions_probabilities(prob_avg, region_split, xvals):
     return probab
 
 
-def get_estimators(probab):
+def check_distal_target(max_val_target,offset_value,region_split):
+    """Check if target geometry extends into the distal synapse region.
+    """
+    _,line1,line2,_=region_split
+    distal_cutoff=(line1+line2)/2
+
+    if max_val_target is None:
+        target_distance=offset_value
+    else:
+        target_distance=max_val_target+offset_value
+
+    return target_distance>distal_cutoff
+
+
+def get_estimators(probab, region_split=None, max_val_target=None, offset_value=None):
     """
     The Phi value calculator
     """
@@ -126,18 +146,37 @@ def get_estimators(probab):
         pA, pS, pO = probab
         dG2 = -np.log(pS / pO)
         dG1 = -np.log(pS / pA)
-        phi = dG2 + dG1
+        if region_split is not None and offset_value is not None:
+            if check_distal_target(max_val_target,offset_value,region_split):
+                phi = dG2
+            else:
+                phi = dG2 + dG1
+        else:
+            phi = dG2 + dG1
     elif len(probab) == 2:
-        pA, pS = probab
-        dG2 = None
-        dG1 = -np.log(pS / pA)
-        phi = dG1
+        if region_split is not None:
+            line0, line1, line2, max_val = region_split
+            if line1 - line0 <= 0 or np.abs(line1 - line0) < (np.abs(line2 - line1))/2:
+                pS, pO = probab
+                dG1 = None
+                dG2 = -np.log(pS / pO)
+                phi = dG2
+            else:
+                pA, pS = probab
+                dG2 = None
+                dG1 = -np.log(pS / pA)
+                phi = dG1
+        else:
+            pA, pS = probab
+            dG2 = None
+            dG1 = -np.log(pS / pA)
+            phi = dG1
     else:
         raise ValueError("Expected 2 or 3 region probabilities.")
     return dG1, dG2, phi
 
 
-def get_estimators_delta(probab, probab_delta):
+def get_estimators_delta(probab, probab_delta, region_split=None, max_val_target=None, offset_value=None):
     """The Phi value error calculator based ont the manuscript.
     """
     if len(probab) == 3:
@@ -149,13 +188,34 @@ def get_estimators_delta(probab, probab_delta):
 
         dG2_err = ((pSd / pS) ** 2 + (pOd / pO) ** 2) ** 0.5 if pS != 0 else abs(pOd / pO)
         dG1_err = ((pSd / pS) ** 2 + (pAd / pA) ** 2) ** 0.5 if pS != 0 else abs(pAd / pA)
-        phi_err = (term1 + term2) ** 0.5
+        if region_split is not None and offset_value is not None:
+            if check_distal_target(max_val_target,offset_value,region_split):
+                phi_err = dG2_err
+            else:
+                phi_err = (term1 + term2) ** 0.5
+        else:
+            phi_err = (term1 + term2) ** 0.5
     elif len(probab) == 2:
-        pA, pS = probab
-        pAd, pSd = probab_delta
-        dG2_err = None
-        dG1_err = ((pSd / pS) ** 2 + (pAd / pA) ** 2) ** 0.5 if pS != 0 else abs(pAd / pA)
-        phi_err = dG1_err
+        if region_split is not None:
+            line0, line1, line2, max_val = region_split
+            if line1 - line0 <= 0 or np.abs(line1 - line0) < (np.abs(line2 - line1))/2:
+                pS, pO = probab
+                pSd, pOd = probab_delta
+                dG1_err = None
+                dG2_err = ((pSd / pS) ** 2 + (pOd / pO) ** 2) ** 0.5 if pS != 0 else abs(pOd / pO)
+                phi_err = dG2_err
+            else:
+                pA, pS = probab
+                pAd, pSd = probab_delta
+                dG2_err = None
+                dG1_err = ((pSd / pS) ** 2 + (pAd / pA) ** 2) ** 0.5 if pS != 0 else abs(pAd / pA)
+                phi_err = dG1_err
+        else:
+            pA, pS = probab
+            pAd, pSd = probab_delta
+            dG2_err = None
+            dG1_err = ((pSd / pS) ** 2 + (pAd / pA) ** 2) ** 0.5 if pS != 0 else abs(pAd / pA)
+            phi_err = dG1_err
     else:
         raise ValueError("Expected 2 or 3 region probabilities.")
     return dG1_err, dG2_err, phi_err
