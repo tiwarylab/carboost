@@ -10,7 +10,7 @@ This package implements the `carboost` protocol in inference stage as mentioned 
 Two colab notebooks are provided with this package:
 
 - A [demo notebook](https://colab.research.google.com/github/tiwarylab/carboost/blob/main/CARBOOST_demo_no_colabfold_CD22target.ipynb) to show how `carboost` protocol performs.
-- A [toolkit notebook](https://colab.research.google.com/github/tiwarylab/carboost/blob/main/CARBOOST_toolkit_with_colabfold_and_rMSA_AF2.ipynb) (<span style="color:red"><strong>UNDER CONSTRUCTION</strong></span>)that uses colabfold and performs carboost protocol for any given sequences.
+- A [toolkit notebook](https://colab.research.google.com/github/tiwarylab/carboost/blob/main/CARBOOST_toolkit_for_Phi_values.ipynb) that uses colabfold and performs carboost protocol for any given target sequences.
 
 ## Install
 It is strongly recommended a separate environment for this package, either with conda or venv. After activating the environment the carboost can be installed by:
@@ -18,14 +18,14 @@ It is strongly recommended a separate environment for this package, either with 
 pip install "git+https://github.com/tiwarylab/carboost.git"
 ```
 
-If you want the `folding` module it is recommended to use Colabnotebook as colabfold $^{[1]}$ requires a GPU with internet available for MSA generation. Please follow the instructions presented in the [toolkit notebook](https://colab.research.google.com/github/tiwarylab/carboost/blob/main/CARBOOST_toolkit_with_colabfold_and_rMSA_AF2.ipynb).
+If you want the `folding` module it is recommended to use Colabnotebook as colabfold $^{[1]}$ requires a GPU with internet available for MSA generation. Please follow the instructions presented in the [toolkit notebook](https://colab.research.google.com/github/tiwarylab/carboost/blob/main/CARBOOST_toolkit_for_Phi_values.ipynb).
 
-For local source installation, please clone the repository using `git clone ...` and simpy run 
+For local source installation, please clone the repository using `git clone ...` and simply run 
 ```bash
 pip install .
 ```
 
-Once the installtion is done you can performa quick check by running
+Once the installation is done you can perform a quick check by running
 ```bash
 python -c "import carboost; print(carboost.__version__)"
 ```
@@ -69,7 +69,7 @@ The `receptor` module is used for analysis of the structural ensemble of target 
 
 ### Synapse module (`carboost.synapse`):
 #### About
-The `synapse` module calculates the intermembrane distance by convolving the CAR's $P(z_{e2e})$ and target's $P(z_{e2e})$ densities. This assumes the the invidual distributions are independent. Finally, this module also calculates the $\phi$ value that is used as a metric to predict the responsiveness of the CAR Tcell for the given target.
+The `synapse` module calculates the intermembrane distance by convolving the CAR's $P(z_{e2e})$ and target's $P(z_{e2e})$ densities. This assumes the the individual distributions are independent. Finally, this module also calculates the $\phi$ value that is used as a metric to predict the responsiveness of the CAR Tcell for the given target.
 
 #### Usage
 This module is written such that the $\phi$ values can be calculated in one-shot. The following code snippet can be used for the same.
@@ -106,7 +106,7 @@ For `af2rave` generated ensemble $^{[4,5]}$:
 from carboost.utils.load_utils import load_af2rave_KDEs
 probab_cars, max_cars = load_af2rave_KDEs(hinge_sequence_lengths=hinge_sequence_lengths)
 ```
-**NOTE:** Please note that these distrbutions are not thermodynamically weighted (for rMSA AF2) or may not be converged (for af2rave). However, we have shown that these data can still give a good estimate on an optimal CD8 $\alpha$ derived CAR hinge.
+**NOTE:** Please note that these distributions are not thermodynamically weighted (for rMSA AF2) or may not be converged (for af2rave). However, we have shown that these data can still give a good estimate on an optimal CD8 $\alpha$ derived CAR hinge.
 
 **NOTE:** Further, rMSA AF2 structures under hinge_sequence_length < 40 with chemical bias can also provide a good estimate on the optimal CD8 $\alpha$ derived CAR hinge.
 
